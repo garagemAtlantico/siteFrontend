@@ -18,11 +18,37 @@ describe(`IdeaService`, () => {
     service = new IdeaService();
   }));
 
-  describe('add a new idea', () => {
-    describe('when no ideas are present', () => {
+  describe('when no ideas are present', () => {
+    describe('add a new idea', () => {
+
       beforeEach(() => {
-        service.add(new IdeaType({name: 'one'}))
+        service.add({ name: 'one', description: 'desc' });
       });
+
+      it('size will be 1', () => {
+        expect(service.size()).toBe(1);
+      });
+
+      it('should return the added idea', () => {
+        let results: IdeaType[] = service.ideas();
+        expect(results.length).toBe(1);
+        let result = results[0];
+
+        expect(result.name).toEqual('one');
+        expect(result.description).toEqual('desc');
+      });
+    });
+  });
+
+  describe('when two ideas are present', () => {
+    beforeEach(() => {
+      service.add({ name: 'one', description: 'description' });
+      service.add({ name: 'two', description: 'description 1' });
+    });
+
+    it('size should be 2', () => {
+      let ideas = service.ideas();
+      expect(ideas.length).toBe(2);
     });
   });
 });

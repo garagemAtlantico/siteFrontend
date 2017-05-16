@@ -4,8 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { IdeaComponent } from './idea.component';
-
-console.log('`Idea` bundle loaded asynchronously');
+import { IdeaService } from './idea.service';
 
 @NgModule({
   declarations: [

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
 export type IdeaType = {
-  name: string,
-  description: string
+  name: string;
+  description: string;
 };
 
 @Injectable()
@@ -10,10 +10,7 @@ export class IdeaService {
 
   public _ideas: IdeaType[] = [];
 
-  /**
-   * Already return a clone of the current ideas.
-   */
-  public get ideas() {
+  public ideas(): IdeaType[] {
     return this._ideas;
   }
 
@@ -21,4 +18,7 @@ export class IdeaService {
     this._ideas.push(idea);
   }
 
+  public size(): number {
+    return 1;
+  }
 }
