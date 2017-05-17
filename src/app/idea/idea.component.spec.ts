@@ -60,8 +60,10 @@ describe(`Idea`, () => {
   it('should have inputs to add new ideas', () => {
     let ideaNameInput = fixture.nativeElement.querySelectorAll('.new-idea-name');
     let ideaDescInput = fixture.nativeElement.querySelectorAll('.new-idea-description');
+    let saveIdeaButton = fixture.nativeElement.querySelectorAll('.new-idea-save');
     expect(ideaNameInput.length).toBe(1, 'Missing New Idea Name input');
     expect(ideaDescInput.length).toBe(1, 'Missing New Idea Description input');
+    expect(saveIdeaButton.length).toBe(1, 'Missing New Idea save button');
   });
 
   describe('when service as no ideas', () => {
@@ -106,6 +108,47 @@ describe(`Idea`, () => {
       de = fixture.nativeElement.querySelectorAll('.idea-item .idea-description')[0];
       expect(de.textContent).toContain('Big description number one',
         'Idea description do not match');
+    });
+  });
+
+  describe('adding a new idea', () => {
+    let ideaNameInput;
+    let ideaDescInput;
+    let saveButton;
+    beforeEach(() => {
+      ideaNameInput = fixture.nativeElement
+        .querySelectorAll('.new-idea-name')[0];
+      ideaDescInput = fixture.nativeElement
+        .querySelectorAll('.new-idea-description')[0];
+      saveButton = fixture.debugElement
+        .query(By.css('new-idea-save'));
+    });
+
+    it('should not any error visible', () => {
+      let errorDiv = fixture.nativeElement
+        .querySelectorAll('.new-idea-error');
+      expect(errorDiv.length)
+        .toBe(0, 'New Idea Name error is displayed');
+
+    });
+
+    describe('when using wrong name', () => {
+      describe('emtpy name', () => {
+        beforeEach(() => {
+          ideaNameInput.value = '';
+          saveButton.triggerEventHandler('click', null);
+        });
+
+        it('should display an error', () => {
+          let errorDiv = fixture.nativeElement
+            .querySelectorAll('.new-idea-error');
+          expect(errorDiv.length)
+            .toBe(1, 'Missing error messages for empty name');
+          expect(errorDiv.textContent)
+            .toContain('The name field cannot be empty',
+            'Invalid empty name message');
+        });
+      });
     });
   });
 });
