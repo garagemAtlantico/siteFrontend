@@ -17,15 +17,20 @@ describe(`Idea`, () => {
   let comp: IdeaComponent;
   let fixture: ComponentFixture<IdeaComponent>;
   let ideaService: IdeaService;
+  let ideasSpy;
 
   /**
    * async beforeEach
    */
   beforeEach(async(() => {
+    ideaService = new IdeaService();
+    ideasSpy = spyOn(ideaService, 'ideas');
     TestBed.configureTestingModule({
       declarations: [IdeaComponent],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [IdeaService]
+      providers: [
+        { provide: IdeaService, useValue: ideaService },
+      ]
     })
       /**
        * Compile template and css
@@ -52,39 +57,55 @@ describe(`Idea`, () => {
     expect(comp).toBeDefined();
   });
 
+  it('should have inputs to add new ideas', () => {
+    let ideaNameInput = fixture.nativeElement.querySelectorAll('.new-idea-name');
+    let ideaDescInput = fixture.nativeElement.querySelectorAll('.new-idea-description');
+    expect(ideaNameInput.length).toBe(1, 'Missing New Idea Name input');
+    expect(ideaDescInput.length).toBe(1, 'Missing New Idea Description input');
+  });
+
   describe('when service as no ideas', () => {
     let de;
     let el;
     beforeEach(() => {
+      ideasSpy.and.returnValue([]);
       de = fixture.debugElement.query(By.css('idea-item'));
     });
 
     it('should not display any idea', () => {
-      expect(de).toBeNull();
+      expect(de).toBeNull('Should not display any idea');
     });
   });
 
   describe('when service as ideas', () => {
     let de;
     beforeEach(() => {
-      ideaService.add({name: 'idea 1', description: 'Big description number one'});
-      ideaService.add({name: 'idea 2', description: 'Small description'});
-      ideaService.add({name: 'idea 3', description: 'Just one big description used for testing'});
+      let allIdeas = [
+        { name: 'idea 1', description: 'Big description number one' },
+        { name: 'idea 2', description: 'Small description' },
+        { name: 'idea 3', description: 'Just one big description used for testing' }
+      ];
+
+      ideasSpy.and.returnValue(allIdeas);
+      comp.retrieveIdeas();
+
+      fixture.detectChanges();
     });
 
     it('should display 3 ideas', () => {
-      de = fixture.debugElement.query(By.css('idea-item'));
-      console.log('debugElement:', fixture.debugElement);
-      expect(de.length).toBe(3);
+      de = fixture.nativeElement.querySelectorAll('.idea-item');
+      expect(de.length).toBe(3, 'Should display 3 ideas');
+    });
+
+    it('first idea should be "idea 1"', () => {
+      de = fixture.nativeElement.querySelectorAll('.idea-item .idea-title')[0];
+      expect(de.textContent).toContain('idea 1', 'Idea name do not match');
+    });
+
+    it('first idea description should be "Big description number one"', () => {
+      de = fixture.nativeElement.querySelectorAll('.idea-item .idea-description')[0];
+      expect(de.textContent).toContain('Big description number one',
+        'Idea description do not match');
     });
   });
-
-  it('should log ngOnInit', () => {
-    spyOn(console, 'log');
-    expect(console.log).not.toHaveBeenCalled();
-
-    comp.ngOnInit();
-    expect(console.log).toHaveBeenCalled();
-  });
-
 });

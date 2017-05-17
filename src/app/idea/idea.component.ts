@@ -7,9 +7,29 @@ import {
 
 @Component({
   selector: 'idea',
+  styles: [
+
+  ],
   template: `
-    <h1>Hello from Idea</h1>
+    <h1>Ideas repository</h1>
+    <div class="new-idea">
+      <div>
+        Name: <input type="text" class="new-idea-name"/>
+      </div>
+      <div>
+        Description: 
+        <textarea class="new-idea-description">
+        </textarea>
+      </div>
+      <button>Add idea</button>
+    </div>
     <div *ngFor="let idea of ideas" class="idea-item">
+      <div class="idea-title">
+        {{idea.name}}
+      </div>
+      <div class="idea-description">
+        {{idea.description}}
+      </div>
     </div>
   `,
 })
@@ -20,7 +40,10 @@ export class IdeaComponent implements OnInit {
   }
 
   public ngOnInit() {
-    console.log('hello `Idea` component');
+    this.retrieveIdeas();
   }
 
+  public retrieveIdeas() {
+    this.ideas = this.ideaService.ideas();
+  }
 }
