@@ -23,7 +23,7 @@ import {
       </div>
       <div>
         Description: 
-        <textarea class="new-idea-description">
+        <textarea class="new-idea-description" [(ngModel)]="newIdea.description">
         </textarea>
         <div class="new-idea-desc-error" *ngIf="descError != null">
           {{descError}}
@@ -68,6 +68,9 @@ export class IdeaComponent implements OnInit {
     if (this.newIdea.description.length === 0) {
       this.descError = 'The description field cannot be empty';
     }
-    console.log(this.newIdea)
+    if(this.newIdea.name.length > 0 && this.newIdea.description.length > 0) {
+      this.ideas.push(this.newIdea);
+      this.newIdea = { name: '', description: '' };
+    }
   }
 }
