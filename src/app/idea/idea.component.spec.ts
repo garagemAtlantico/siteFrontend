@@ -3,6 +3,8 @@ import {
   inject,
   async,
   TestBed,
+  fakeAsync,
+  tick,
   ComponentFixture
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -120,33 +122,77 @@ describe(`Idea`, () => {
         .querySelectorAll('.new-idea-name')[0];
       ideaDescInput = fixture.nativeElement
         .querySelectorAll('.new-idea-description')[0];
-      saveButton = fixture.debugElement
-        .query(By.css('new-idea-save'));
+      saveButton = fixture.debugElement.nativeElement.querySelector(
+        '.new-idea-save');
     });
 
     it('should not any error visible', () => {
-      let errorDiv = fixture.nativeElement
-        .querySelectorAll('.new-idea-error');
-      expect(errorDiv.length)
+      let nameErrorDiv = fixture.nativeElement
+        .querySelectorAll('.new-idea-name-error');
+      expect(nameErrorDiv.length)
         .toBe(0, 'New Idea Name error is displayed');
-
+      let descErrorDiv = fixture.nativeElement
+        .querySelectorAll('.new-idea-desc-error');
+      expect(descErrorDiv.length)
+        .toBe(0, 'New Idea Description error is displayed');
     });
 
     describe('when using wrong name', () => {
       describe('emtpy name', () => {
-        beforeEach(() => {
+        beforeEach(fakeAsync(() => {
           ideaNameInput.value = '';
-          saveButton.triggerEventHandler('click', null);
+          ideaDescInput.value = 'This is the new description of the idea';
+          saveButton.click();
+          fixture.detectChanges();
+        }));
+
+        it('should not display a description error', () => {
+          let errorDiv = fixture.nativeElement
+            .querySelectorAll('.new-idea-desc-error');
+          expect(errorDiv.length)
+            .toBe(0, 'Description field error displauyed');
         });
 
         it('should display an error', () => {
           let errorDiv = fixture.nativeElement
-            .querySelectorAll('.new-idea-error');
+            .querySelectorAll('.new-idea-name-error');
           expect(errorDiv.length)
             .toBe(1, 'Missing error messages for empty name');
-          expect(errorDiv.textContent)
+          expect(errorDiv[0].textContent)
             .toContain('The name field cannot be empty',
             'Invalid empty name message');
+        });
+      });
+    });
+
+    describe('when using wrong description', () => {
+      describe('emtpy description', () => {
+        beforeEach(fakeAsync(() => {
+          ideaNameInput.value = 'New idea';
+          ideaDescInput.value = '';
+          ideaNameInput.dispatchEvent(new Event('input'));
+          ideaDescInput.dispatchEvent(new Event('input'));
+
+          fixture.detectChanges();
+          saveButton.click();
+          fixture.detectChanges();
+        }));
+
+        it('should not display name error', () => {
+          let errorDiv = fixture.nativeElement
+            .querySelectorAll('.new-idea-name-error');
+          expect(errorDiv.length)
+            .toBe(0, 'Name field error displayed');
+        });
+
+        it('should display an error', () => {
+          let errorDiv = fixture.nativeElement
+            .querySelectorAll('.new-idea-desc-error');
+          expect(errorDiv.length)
+            .toBe(1, 'Missing error messages for empty description');
+          expect(errorDiv[0].textContent)
+            .toContain('The description field cannot be empty',
+            'Invalid empty description message');
         });
       });
     });
