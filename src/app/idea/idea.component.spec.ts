@@ -131,6 +131,8 @@ describe(`Idea`, () => {
         .querySelectorAll('.new-idea-description')[0];
       saveButton = fixture.debugElement.nativeElement.querySelector(
         '.new-idea-save');
+
+      ideasSpy.and.returnValue(Promise.resolve([]));
     });
 
     it('should not any error visible', () => {
