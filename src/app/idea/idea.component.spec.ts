@@ -27,7 +27,7 @@ describe(`Idea`, () => {
    */
   beforeEach(async(() => {
     ideaService = new IdeaService();
-    ideasSpy = spyOn(ideaService, 'ideas');
+    ideasSpy = spyOn(ideaService, 'getIdeas');
     TestBed.configureTestingModule({
       declarations: [IdeaComponent],
       schemas: [NO_ERRORS_SCHEMA],
@@ -76,10 +76,12 @@ describe(`Idea`, () => {
   describe('when service as no ideas', () => {
     let de;
     let el;
-    beforeEach(() => {
-      ideasSpy.and.returnValue([]);
+    beforeEach(fakeAsync(() => {
+      ideasSpy.and.returnValue(Promise.resolve([]));
+      tick();
+      fixture.detectChanges();
       de = fixture.debugElement.query(By.css('idea-item'));
-    });
+    }));
 
     it('should not display any idea', () => {
       expect(de).toBeNull('Should not display any idea');
@@ -88,18 +90,18 @@ describe(`Idea`, () => {
 
   describe('when service as ideas', () => {
     let de;
-    beforeEach(() => {
+    beforeEach(fakeAsync(() => {
       let allIdeas = [
         { name: 'idea 1', description: 'Big description number one' },
         { name: 'idea 2', description: 'Small description' },
         { name: 'idea 3', description: 'Just one big description used for testing' }
       ];
 
-      ideasSpy.and.returnValue(allIdeas);
+      ideasSpy.and.returnValue(Promise.resolve(allIdeas));
       comp.retrieveIdeas();
-
+      tick();
       fixture.detectChanges();
-    });
+    }));
 
     it('should display 3 ideas', () => {
       de = fixture.nativeElement.querySelectorAll('.idea-item');

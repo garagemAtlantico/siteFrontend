@@ -46,9 +46,10 @@ describe(`IdeaService`, () => {
       service.add({ name: 'two', description: 'description 1' });
     });
 
-    it('size should be 2', () => {
-      let ideas = service.ideas();
+    it('size should be 2', async(() => {
+      service.getIdeas().then((ideas) => {
       expect(ideas.length).toBe(2);
-    });
+      });
+    }));
   });
 });

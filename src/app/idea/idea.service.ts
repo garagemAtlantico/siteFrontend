@@ -14,6 +14,10 @@ export class IdeaService {
     return this._ideas;
   }
 
+  public getIdeas(): Promise<IdeaType[]> {
+    return Promise.resolve(this._ideas);
+  }
+
   public add(idea: IdeaType) {
     this._ideas.push(idea);
   }

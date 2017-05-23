@@ -57,7 +57,7 @@ export class IdeaComponent implements OnInit {
   }
 
   public retrieveIdeas() {
-    this.ideas = this.ideaService.ideas();
+    this.ideaService.getIdeas().then((ideas) => this.ideas = ideas);
   }
 
   public saveNewIdea() {
@@ -68,7 +68,8 @@ export class IdeaComponent implements OnInit {
       this.descError = 'The description field cannot be empty';
     }
     if (this.newIdea.name.length > 0 && this.newIdea.description.length > 0) {
-      this.ideas.push(this.newIdea);
+      this.ideaService.add(this.newIdea);
+      this.retrieveIdeas();
       this.newIdea = { name: '', description: '' };
     }
   }
