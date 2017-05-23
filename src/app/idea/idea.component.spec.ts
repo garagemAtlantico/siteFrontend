@@ -8,6 +8,7 @@ import {
   ComponentFixture
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 /**
  * Load the implementations that should be tested
@@ -30,6 +31,7 @@ describe(`Idea`, () => {
     TestBed.configureTestingModule({
       declarations: [IdeaComponent],
       schemas: [NO_ERRORS_SCHEMA],
+      imports: [FormsModule],
       providers: [
         { provide: IdeaService, useValue: ideaService },
       ]
@@ -38,21 +40,24 @@ describe(`Idea`, () => {
        * Compile template and css
        */
       .compileComponents();
+    fixture = TestBed.createComponent(IdeaComponent);
+    comp = fixture.componentInstance;
+    ideaService = fixture.debugElement.injector.get(IdeaService);
   }));
 
   /**
    * Synchronous beforeEach
    */
-  beforeEach(() => {
-    fixture = TestBed.createComponent(IdeaComponent);
-    comp = fixture.componentInstance;
-    ideaService = fixture.debugElement.injector.get(IdeaService);
+  // beforeEach(() => {
+  //   fixture = TestBed.createComponent(IdeaComponent);
+  //   comp = fixture.componentInstance;
+  //   ideaService = fixture.debugElement.injector.get(IdeaService);
 
-    /**
-     * Trigger initial data binding
-     */
-    fixture.detectChanges();
-  });
+  //   /**
+  //    * Trigger initial data binding
+  //    */
+  //   fixture.detectChanges();
+  // });
 
   it(`should be readly initialized`, () => {
     expect(fixture).toBeDefined();
@@ -199,15 +204,23 @@ describe(`Idea`, () => {
 
     xdescribe('when is successfull', () => {
       beforeEach(fakeAsync(() => {
+        ideaNameInput = fixture.debugElement.query(By.css('.new-idea-name')).nativeElement;
         ideaNameInput.value = 'New Idea';
         ideaDescInput.value = 'This is the new description of the idea';
+        ideaNameInput.dispatchEvent(new Event('input'));
+        ideaDescInput.dispatchEvent(new Event('input'));
+        tick();
+        fixture.detectChanges();
         saveButton.click();
         fixture.detectChanges();
       }));
 
-      it('should display 1 idea', () => {
-        let de = fixture.nativeElement.querySelectorAll('.idea-item');
-        expect(de.length).toBe(1, 'Should display 1 idea');
+      it('should display 1 idea', (done) => {
+        fixture.whenStable().then(() => {
+          let de = fixture.nativeElement.querySelectorAll('.idea-item');
+          expect(de.length).toBe(1, 'Should display 1 idea');
+          done();
+        });
       });
 
       it('first idea should be "New idea"', () => {

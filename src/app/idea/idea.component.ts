@@ -5,11 +5,10 @@ import {
   OnInit,
 } from '@angular/core';
 
+import '../../styles/styles.scss';
+
 @Component({
   selector: 'idea',
-  styles: [
-
-  ],
   template: `
     <h1>Ideas repository</h1>
     <div class="new-idea">
@@ -17,7 +16,7 @@ import {
         <div>
         Name: <input type="text" class="new-idea-name" [(ngModel)]="newIdea.name"/>
         </div>
-        <div class="new-idea-name-error" *ngIf="nameError != null">
+        <div class="new-idea-name-error font-color-red" *ngIf="nameError != null">
           {{nameError}}
         </div>
       </div>
@@ -25,7 +24,7 @@ import {
         Description: 
         <textarea class="new-idea-description" [(ngModel)]="newIdea.description">
         </textarea>
-        <div class="new-idea-desc-error" *ngIf="descError != null">
+        <div class="new-idea-desc-error font-color-red" *ngIf="descError != null">
           {{descError}}
         </div>
       </div>
@@ -68,7 +67,7 @@ export class IdeaComponent implements OnInit {
     if (this.newIdea.description.length === 0) {
       this.descError = 'The description field cannot be empty';
     }
-    if(this.newIdea.name.length > 0 && this.newIdea.description.length > 0) {
+    if (this.newIdea.name.length > 0 && this.newIdea.description.length > 0) {
       this.ideas.push(this.newIdea);
       this.newIdea = { name: '', description: '' };
     }
