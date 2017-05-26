@@ -81,10 +81,16 @@ export class IdeaComponent implements OnInit, OnChanges {
   public saveNewIdea() {
     if (this.newIdea.name.length === 0) {
       this.nameError = 'The name field cannot be empty';
+    } else {
+      this.nameError = null;
     }
+
     if (this.newIdea.description.length === 0) {
       this.descError = 'The description field cannot be empty';
+    } else {
+      this.descError = null;
     }
+
     if (this.newIdea.name.length > 0 && this.newIdea.description.length > 0) {
       this.ideaService.add(this.newIdea);
       this.retrieveIdeas();

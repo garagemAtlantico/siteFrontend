@@ -173,6 +173,23 @@ describe(`Idea`, () => {
             .toContain('The name field cannot be empty',
             'Invalid empty name message');
         });
+
+        describe('when a correct name is supplied', () => {
+          beforeEach(async(() => {
+            ideaNameInput.value = 'idea name';
+            ideaNameInput.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            saveButton.click();
+            fixture.detectChanges();
+          }));
+
+          it('should not display the name error', () => {
+            let errorDiv = fixture.nativeElement
+              .querySelectorAll('.new-idea-name-error');
+            expect(errorDiv.length)
+              .toBe(0, 'Name field error displayed');
+          });
+        });
       });
     });
 
@@ -204,6 +221,22 @@ describe(`Idea`, () => {
           expect(errorDiv[0].textContent)
             .toContain('The description field cannot be empty',
             'Invalid empty description message');
+        });
+        describe('when a correct description is supplied', () => {
+          beforeEach(async(() => {
+            ideaDescInput.value = 'new description';
+            ideaDescInput.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            saveButton.click();
+            fixture.detectChanges();
+          }));
+
+          it('should not display the name error', () => {
+            let errorDiv = fixture.nativeElement
+              .querySelectorAll('.new-idea-desc-error');
+            expect(errorDiv.length)
+              .toBe(0, 'Name field error displayed');
+          });
         });
       });
     });
