@@ -149,7 +149,9 @@ describe(`Idea`, () => {
     describe('when using wrong name', () => {
       describe('emtpy name', () => {
         beforeEach(async(() => {
+          fixture.detectChanges();
           ideaNameInput.value = '';
+          ideaNameInput.dispatchEvent(new Event('input'));
           ideaDescInput.value = 'This is the new description of the idea';
           ideaDescInput.dispatchEvent(new Event('input'));
           fixture.detectChanges();
@@ -235,40 +237,38 @@ describe(`Idea`, () => {
             let errorDiv = fixture.nativeElement
               .querySelectorAll('.new-idea-desc-error');
             expect(errorDiv.length)
-              .toBe(0, 'Name field error displayed');
+              .toBe(0, 'Description field error displayed');
           });
         });
       });
     });
 
     describe('when is successfull', () => {
-      beforeEach(fakeAsync(() => {
-        ideaNameInput = fixture.debugElement.query(By.css('.new-idea-name')).nativeElement;
+      beforeEach(async(() => {
+        fixture.detectChanges();
         ideaNameInput.value = 'New Idea';
-        ideaDescInput.value = 'This is the new description of the idea';
         ideaNameInput.dispatchEvent(new Event('input'));
+        ideaDescInput.value = 'This is the new description of the idea';
         ideaDescInput.dispatchEvent(new Event('input'));
-        tick();
         fixture.detectChanges();
         saveButton.click();
-        tick();
         fixture.detectChanges();
       }));
 
-      it('should display 1 idea', (done) => {
-        fixture.whenStable().then(() => {
-          let de = fixture.nativeElement.querySelectorAll('.idea-item');
-          expect(de.length).toBe(1, 'Should display 1 idea');
-          done();
-        });
+      it('should display 1 idea', () => {
+        fixture.detectChanges();
+        let de = fixture.nativeElement.querySelectorAll('.idea-item');
+        expect(de.length).toBe(1, 'Should display 1 idea');
       });
 
       it('first idea should be "New idea"', () => {
+        fixture.detectChanges();
         let de = fixture.nativeElement.querySelectorAll('.idea-item .idea-title')[0];
         expect(de.textContent).toContain('New Idea', 'Idea name do not match');
       });
 
       it('first idea description should be "This is the new description of the idea"', () => {
+        fixture.detectChanges();
         let de = fixture.nativeElement.querySelectorAll('.idea-item .idea-description')[0];
         expect(de.textContent).toContain('This is the new description of the idea',
           'Idea description do not match');

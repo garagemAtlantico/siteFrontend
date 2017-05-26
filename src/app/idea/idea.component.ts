@@ -17,7 +17,7 @@ import '../../styles/styles.scss';
     <div class="new-idea">
       <div>
         <div>
-        Name: <input #ideaName type="text" class="new-idea-name" [(ngModel)]="newIdea.name"/>
+        Name: <input type="text" class="new-idea-name" [(ngModel)]="ideaName"/>
         </div>
         <div class="new-idea-name-error font-color-red" *ngIf="nameError != null">
           {{nameError}}
@@ -25,7 +25,7 @@ import '../../styles/styles.scss';
       </div>
       <div>
         Description: 
-        <textarea #ideaDescription class="new-idea-description" [(ngModel)]="newIdea.description">
+        <textarea class="new-idea-description" [(ngModel)]="ideaDesc">
         </textarea>
         <div class="new-idea-desc-error font-color-red" *ngIf="descError != null">
           {{descError}}
@@ -43,58 +43,60 @@ import '../../styles/styles.scss';
     </div>
   `,
 })
-export class IdeaComponent implements OnInit, OnChanges {
+export class IdeaComponent implements OnInit {
   public nameError: string;
   public descError: string;
-  public newIdea: IdeaType;
+  public ideaName = '';
+  public ideaDesc = '';
+  // public newIdea: IdeaType;
   private ideas: IdeaType[];
-  @ViewChild('ideaName') private ideaNameInput;
-  @ViewChild('ideaDescription') private ideaDescriptionInput;
+  // @ViewChild('ideaName') private ideaNameInput;
+  // @ViewChild('ideaDescription') private ideaDescriptionInput;
 
   constructor(private ideaService: IdeaService) {
     this.nameError = null;
     this.descError = null;
-    this.newIdea = { name: '', description: '' };
+    // this.newIdea = { name: '', description: '' };
   }
 
   public ngOnInit() {
     this.retrieveIdeas();
-    this.newIdea = { name: '', description: '' };
+    // this.newIdea.name = '';
+    // this.newIdea.description = '';
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
-    console.log('changed stuff, ', this.newIdea);
-  }
+  // public ngOnChanges(changes: SimpleChanges) {
+  // }
 
-  public ngDoCheck() {
-    console.log('doCheck', this.ideaNameInput.nativeElement.value);
-    this.newIdea.name = this.ideaNameInput.nativeElement.value;
-    this.newIdea.description = this.ideaDescriptionInput.nativeElement.value;
-  }
+  // public ngDoCheck() {
+  //   // this.newIdea.name = this.ideaNameInput.nativeElement.value;
+  //   // this.newIdea.description = this.ideaDescriptionInput.nativeElement.value;
+  // }
 
   public retrieveIdeas() {
-    this.ideaService.getIdeas().then(ideas =>
+    this.ideaService.getIdeas().then((ideas) =>
       this.ideas = ideas
     );
   }
 
   public saveNewIdea() {
-    if (this.newIdea.name.length === 0) {
+    if (this.ideaName.length === 0) {
       this.nameError = 'The name field cannot be empty';
     } else {
       this.nameError = null;
     }
 
-    if (this.newIdea.description.length === 0) {
+    if (this.ideaDesc.length === 0) {
       this.descError = 'The description field cannot be empty';
     } else {
       this.descError = null;
     }
 
-    if (this.newIdea.name.length > 0 && this.newIdea.description.length > 0) {
-      this.ideaService.add(this.newIdea);
+    if (this.ideaName.length > 0 && this.ideaDesc.length > 0) {
+      this.ideaService.add({name: this.ideaName, description: this.ideaDesc});
       this.retrieveIdeas();
-      this.newIdea = { name: '', description: '' };
+      this.ideaName = '';
+      this.ideaDesc = '';
     }
   }
 }
