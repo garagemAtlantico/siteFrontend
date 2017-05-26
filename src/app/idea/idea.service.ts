@@ -15,6 +15,7 @@ export class IdeaService {
   }
 
   public getIdeas(): Promise<IdeaType[]> {
+    console.log('Retrieving ideas');
     return Promise.resolve(this._ideas);
   }
 

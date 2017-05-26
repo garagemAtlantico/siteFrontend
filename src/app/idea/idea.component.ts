@@ -3,6 +3,9 @@ import { IdeaService, IdeaType } from './idea.service';
 import {
   Component,
   OnInit,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 
 import '../../styles/styles.scss';
@@ -14,7 +17,7 @@ import '../../styles/styles.scss';
     <div class="new-idea">
       <div>
         <div>
-        Name: <input type="text" class="new-idea-name" [(ngModel)]="newIdea.name"/>
+        Name: <input #ideaName type="text" class="new-idea-name" [(ngModel)]="newIdea.name"/>
         </div>
         <div class="new-idea-name-error font-color-red" *ngIf="nameError != null">
           {{nameError}}
@@ -22,7 +25,7 @@ import '../../styles/styles.scss';
       </div>
       <div>
         Description: 
-        <textarea class="new-idea-description" [(ngModel)]="newIdea.description">
+        <textarea #ideaDescription class="new-idea-description" [(ngModel)]="newIdea.description">
         </textarea>
         <div class="new-idea-desc-error font-color-red" *ngIf="descError != null">
           {{descError}}
@@ -40,11 +43,14 @@ import '../../styles/styles.scss';
     </div>
   `,
 })
-export class IdeaComponent implements OnInit {
+export class IdeaComponent implements OnInit, OnChanges {
   public nameError: string;
   public descError: string;
   public newIdea: IdeaType;
   private ideas: IdeaType[];
+  @ViewChild('ideaName') private ideaNameInput;
+  @ViewChild('ideaDescription') private ideaDescriptionInput;
+
   constructor(private ideaService: IdeaService) {
     this.nameError = null;
     this.descError = null;
@@ -56,8 +62,20 @@ export class IdeaComponent implements OnInit {
     this.newIdea = { name: '', description: '' };
   }
 
+  public ngOnChanges(changes: SimpleChanges) {
+    console.log('changed stuff, ', this.newIdea);
+  }
+
+  public ngDoCheck() {
+    console.log('doCheck', this.ideaNameInput.nativeElement.value);
+    this.newIdea.name = this.ideaNameInput.nativeElement.value;
+    this.newIdea.description = this.ideaDescriptionInput.nativeElement.value;
+  }
+
   public retrieveIdeas() {
-    this.ideaService.getIdeas().then((ideas) => this.ideas = ideas);
+    this.ideaService.getIdeas().then(ideas =>
+      this.ideas = ideas
+    );
   }
 
   public saveNewIdea() {

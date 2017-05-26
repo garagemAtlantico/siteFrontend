@@ -132,7 +132,7 @@ describe(`Idea`, () => {
       saveButton = fixture.debugElement.nativeElement.querySelector(
         '.new-idea-save');
 
-      ideasSpy.and.returnValue(Promise.resolve([]));
+      ideasSpy.and.callThrough();
     });
 
     it('should not any error visible', () => {
@@ -146,11 +146,13 @@ describe(`Idea`, () => {
         .toBe(0, 'New Idea Description error is displayed');
     });
 
-    xdescribe('when using wrong name', () => {
+    describe('when using wrong name', () => {
       describe('emtpy name', () => {
-        beforeEach(fakeAsync(() => {
+        beforeEach(async(() => {
           ideaNameInput.value = '';
           ideaDescInput.value = 'This is the new description of the idea';
+          ideaDescInput.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
           saveButton.click();
           fixture.detectChanges();
         }));
@@ -174,9 +176,9 @@ describe(`Idea`, () => {
       });
     });
 
-    xdescribe('when using wrong description', () => {
+    describe('when using wrong description', () => {
       describe('emtpy description', () => {
-        beforeEach(fakeAsync(() => {
+        beforeEach(async(() => {
           fixture.detectChanges();
           ideaNameInput.value = 'New idea';
           ideaDescInput.value = '';
@@ -206,7 +208,7 @@ describe(`Idea`, () => {
       });
     });
 
-    xdescribe('when is successfull', () => {
+    describe('when is successfull', () => {
       beforeEach(fakeAsync(() => {
         ideaNameInput = fixture.debugElement.query(By.css('.new-idea-name')).nativeElement;
         ideaNameInput.value = 'New Idea';
@@ -216,6 +218,7 @@ describe(`Idea`, () => {
         tick();
         fixture.detectChanges();
         saveButton.click();
+        tick();
         fixture.detectChanges();
       }));
 
@@ -229,7 +232,7 @@ describe(`Idea`, () => {
 
       it('first idea should be "New idea"', () => {
         let de = fixture.nativeElement.querySelectorAll('.idea-item .idea-title')[0];
-        expect(de.textContent).toContain('New idea', 'Idea name do not match');
+        expect(de.textContent).toContain('New Idea', 'Idea name do not match');
       });
 
       it('first idea description should be "This is the new description of the idea"', () => {
