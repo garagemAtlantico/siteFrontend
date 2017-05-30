@@ -14,31 +14,44 @@ import '../../styles/styles.scss';
   selector: 'idea',
   template: `
     <h1>Ideas repository</h1>
-    <div class="new-idea">
-      <div>
-        <div>
-        Name: <input type="text" class="new-idea-name" [(ngModel)]="ideaName"/>
+    <div class="box-vertical full-width box-center">
+      <div class="new-idea box-item-2 width-30">
+        <div class="box-horizontal"> 
+          <div class="box-item-1">
+            Name: 
+          </div>
+          <div class="box-item-1">
+            <input type="text" class="new-idea-name" [(ngModel)]="ideaName"/>
+          </div>
+          <div class="box-item-1">
+            <div class="new-idea-name-error font-color-red" *ngIf="nameError != null">
+              {{nameError}}
+            </div>
+          </div>
         </div>
-        <div class="new-idea-name-error font-color-red" *ngIf="nameError != null">
-          {{nameError}}
+        <div class="box-horizontal">
+          <div class="box-item-1">
+            Description: 
+          </div>
+          <div class="box-item-1">
+            <textarea class="new-idea-description" [(ngModel)]="ideaDesc">
+            </textarea>
+          </div>
+          <div class="box-item-1">
+            <div class="new-idea-desc-error font-color-red" *ngIf="descError != null">
+              {{descError}}
+            </div>
+          </div>
         </div>
+        <button class="new-idea-save" (click)="saveNewIdea()">Add idea</button>
       </div>
-      <div>
-        Description: 
-        <textarea class="new-idea-description" [(ngModel)]="ideaDesc">
-        </textarea>
-        <div class="new-idea-desc-error font-color-red" *ngIf="descError != null">
-          {{descError}}
+      <div *ngFor="let idea of ideas" class="idea-item box-item-1">
+        <div class="idea-title">
+          {{idea.name}}
         </div>
-      </div>
-      <button class="new-idea-save" (click)="saveNewIdea()">Add idea</button>
-    </div>
-    <div *ngFor="let idea of ideas" class="idea-item">
-      <div class="idea-title">
-        {{idea.name}}
-      </div>
-      <div class="idea-description">
-        {{idea.description}}
+        <div class="idea-description">
+          {{idea.description}}
+        </div>
       </div>
     </div>
   `,
@@ -79,7 +92,7 @@ export class IdeaComponent implements OnInit {
     }
 
     if (this.ideaName.length > 0 && this.ideaDesc.length > 0) {
-      this.ideaService.add({name: this.ideaName, description: this.ideaDesc});
+      this.ideaService.add({ name: this.ideaName, description: this.ideaDesc });
       this.retrieveIdeas();
       this.ideaName = '';
       this.ideaDesc = '';
