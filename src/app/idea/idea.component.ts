@@ -23,8 +23,8 @@ import '../../styles/styles.scss';
           <div class="box-item-1">
             <input type="text" class="new-idea-name" [(ngModel)]="ideaName"/>
           </div>
-          <div class="box-item-1">
-            <div class="new-idea-name-error font-color-red" *ngIf="nameError != null">
+          <div class="box-item-2">
+            <div class="new-idea-name-error font-color-red padl-2" *ngIf="nameError != null">
               {{nameError}}
             </div>
           </div>
@@ -37,19 +37,19 @@ import '../../styles/styles.scss';
             <textarea class="new-idea-description" [(ngModel)]="ideaDesc">
             </textarea>
           </div>
-          <div class="box-item-1">
-            <div class="new-idea-desc-error font-color-red" *ngIf="descError != null">
+          <div class="box-item-2">
+            <div class="new-idea-desc-error font-color-red padl-2" *ngIf="descError != null">
               {{descError}}
             </div>
           </div>
         </div>
         <button class="new-idea-save" (click)="saveNewIdea()">Add idea</button>
       </div>
-      <div *ngFor="let idea of ideas" class="idea-item box-item-1">
-        <div class="idea-title">
+      <div *ngFor="let idea of ideas" class="idea-item box-item-1 padt-5">
+        <div class="idea-title bg-color-blue pad-5 font-color-white">
           {{idea.name}}
         </div>
-        <div class="idea-description">
+        <div class="idea-description border-color-grey bordl-1 bordr-1 bordb-1 border-solid">
           {{idea.description}}
         </div>
       </div>

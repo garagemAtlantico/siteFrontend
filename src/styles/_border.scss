@@ -1,0 +1,13 @@
+$list: 0 1 2 5;
+
+@each $i in $list {
+  .bordl-#{$i} {border-left-width: #{$i}px};
+  .bordr-#{$i} {border-right-width: #{$i}px};
+  .bordt-#{$i} {border-top-width: #{$i}px};
+  .bordb-#{$i} {border-bottom-width: #{$i}px};
+  .bord-#{$i} {border-width: #{$i}px}
+}
+
+.border-solid {
+  border-style: solid;
+}

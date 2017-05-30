@@ -2,6 +2,8 @@
 /* This file is for setting global styles  */
 @import 'variables';
 @import 'colors';
+@import 'padding';
+@import 'border';
 
 nav {
   margin-top: 16px;
@@ -51,6 +53,11 @@ nav a {
 
 .align-center {
   align-content: center;
+}
+
+.round-corners {
+  border-radius: 9px;
+  padding: 7px; 
 }
 
 body {

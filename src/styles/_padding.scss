@@ -1,0 +1,9 @@
+$list: 0 1 2 5 10 15 20;
+
+@each $i in $list {
+  .padl-#{$i} {padding-left: #{$i}px};
+  .padr-#{$i} {padding-right: #{$i}px};
+  .padt-#{$i} {padding-top: #{$i}px};
+  .padb-#{$i} {padding-bottom: #{$i}px};
+  .pad-#{$i} {padding: #{$i}px}
+}
