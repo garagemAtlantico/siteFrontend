@@ -15,15 +15,17 @@ export class IdeaService {
   }
 
   public getIdeas(): Promise<IdeaType[]> {
-    console.log('Retrieving ideas');
     return Promise.resolve(this._ideas);
   }
 
-  public add(idea: IdeaType) {
-    this._ideas.push(idea);
+  public add(idea: IdeaType): Promise<IdeaType> {
+    return new Promise((promise) => {
+      this._ideas.push(idea);
+      promise(idea);
+    });
   }
 
-  public size(): number {
-    return 1;
+  public size(): Promise<number> {
+    return Promise.resolve(this._ideas.length);
   }
 }

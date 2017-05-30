@@ -48,30 +48,16 @@ export class IdeaComponent implements OnInit {
   public descError: string;
   public ideaName = '';
   public ideaDesc = '';
-  // public newIdea: IdeaType;
   private ideas: IdeaType[];
-  // @ViewChild('ideaName') private ideaNameInput;
-  // @ViewChild('ideaDescription') private ideaDescriptionInput;
 
   constructor(private ideaService: IdeaService) {
     this.nameError = null;
     this.descError = null;
-    // this.newIdea = { name: '', description: '' };
   }
 
   public ngOnInit() {
     this.retrieveIdeas();
-    // this.newIdea.name = '';
-    // this.newIdea.description = '';
   }
-
-  // public ngOnChanges(changes: SimpleChanges) {
-  // }
-
-  // public ngDoCheck() {
-  //   // this.newIdea.name = this.ideaNameInput.nativeElement.value;
-  //   // this.newIdea.description = this.ideaDescriptionInput.nativeElement.value;
-  // }
 
   public retrieveIdeas() {
     this.ideaService.getIdeas().then((ideas) =>

@@ -21,12 +21,16 @@ describe(`IdeaService`, () => {
   describe('when no ideas are present', () => {
     describe('add a new idea', () => {
 
-      beforeEach(() => {
-        service.add({ name: 'one', description: 'desc' });
+      beforeEach((done) => {
+        service.add({ name: 'one', description: 'desc' }).then(() => {
+          done();
+        });
       });
 
       it('size will be 1', () => {
-        expect(service.size()).toBe(1);
+        service.size().then((size) => {
+          expect(size).toBe(1);
+        });
       });
 
       it('should return the added idea', () => {
@@ -46,9 +50,15 @@ describe(`IdeaService`, () => {
       service.add({ name: 'two', description: 'description 1' });
     });
 
-    it('size should be 2', async(() => {
+    it('should retrieve 2 ideas', async(() => {
       service.getIdeas().then((ideas) => {
       expect(ideas.length).toBe(2);
+      });
+    }));
+
+    it('size should be 2', async(() => {
+      service.size().then((size) => {
+        expect(size).toBe(2);
       });
     }));
   });
