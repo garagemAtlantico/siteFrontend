@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 export type IdeaType = {
   name: string;
   description: string;
+  creationDate: Date;
 };
 
 @Injectable()
@@ -20,6 +21,7 @@ export class IdeaService {
 
   public add(idea: IdeaType): Promise<IdeaType> {
     return new Promise((promise) => {
+      idea.creationDate = new Date();
       this._ideas.push(idea);
       promise(idea);
     });

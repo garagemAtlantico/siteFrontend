@@ -8,6 +8,7 @@ import { IdeasComponent } from './ideas.component';
 import { IdeaComponent } from './idea.component';
 import { NewIdeaComponent } from './new/new.idea.component';
 import { IdeaService } from './idea.service';
+import { IdeaSortPipe } from './idea.pipe';
 
 console.log('`Idea` bundle loaded asynchronously');
 
@@ -19,6 +20,7 @@ console.log('`Idea` bundle loaded asynchronously');
     IdeasComponent,
     IdeaComponent,
     NewIdeaComponent,
+    IdeaSortPipe,
   ],
   imports: [
     CommonModule,

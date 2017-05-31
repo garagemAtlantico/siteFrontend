@@ -19,7 +19,7 @@ import '../../styles/styles.scss';
         <newIdea (onIdeaAdd)="retrieveIdeas()">
         </newIdea>
       </div>
-      <div *ngFor="let idea of ideas" class="idea-item box-item-1 padt-5">
+      <div *ngFor="let idea of (ideas | ideaSort)" class="idea-item box-item-1 padt-5">
         <idea [idea]="idea">
         </idea>
       </div>
@@ -30,6 +30,7 @@ export class IdeasComponent implements OnInit {
   private ideas: IdeaType[];
 
   constructor(private ideaService: IdeaService) {
+    this.ideas = [];
   }
 
   public ngOnInit() {

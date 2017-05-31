@@ -17,6 +17,7 @@ import { IdeasComponent } from './ideas.component';
 import { IdeaComponent } from './idea.component';
 import { NewIdeaComponent } from './new/new.idea.component';
 import { IdeaService } from './idea.service';
+import { IdeaSortPipe } from './idea.pipe';
 
 describe(`Ideas`, () => {
   let comp: IdeasComponent;
@@ -35,6 +36,7 @@ describe(`Ideas`, () => {
         IdeasComponent,
         IdeaComponent,
         NewIdeaComponent,
+        IdeaSortPipe,
       ],
       schemas: [NO_ERRORS_SCHEMA],
       imports: [FormsModule],
@@ -156,6 +158,37 @@ describe(`Ideas`, () => {
         let de = fixture.nativeElement.querySelectorAll('.idea-item .idea-description')[0];
         expect(de.textContent).toContain('This is the new description of the idea',
           'Idea description do not match');
+      });
+      describe('when add another idea', () => {
+        beforeEach(async(() => {
+          fixture.detectChanges();
+          ideaNameInput.value = 'Newer Idea';
+          ideaNameInput.dispatchEvent(new Event('input'));
+          ideaDescInput.value = 'This is the newer description of the idea';
+          ideaDescInput.dispatchEvent(new Event('input'));
+          fixture.detectChanges();
+          saveButton.click();
+          fixture.detectChanges();
+        }));
+
+        it('should display 2 ideas', () => {
+          fixture.detectChanges();
+          let de = fixture.nativeElement.querySelectorAll('.idea-item');
+          expect(de.length).toBe(2, 'Should display 2 idea');
+        });
+
+        it('first idea should be "Newer idea"', () => {
+          fixture.detectChanges();
+          let de = fixture.nativeElement.querySelectorAll('.idea-item .idea-title')[0];
+          expect(de.textContent).toContain('Newer Idea', 'Idea name do not match');
+        });
+
+        it('first idea description should be "This is the newer description of the idea"', () => {
+          fixture.detectChanges();
+          let de = fixture.nativeElement.querySelectorAll('.idea-item .idea-description')[0];
+          expect(de.textContent).toContain('This is the newer description of the idea',
+            'Idea description do not match');
+        });
       });
     });
   });
