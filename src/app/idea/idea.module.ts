@@ -3,8 +3,10 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { routes } from './idea.routes';
+import { routes } from './ideas.routes';
+import { IdeasComponent } from './ideas.component';
 import { IdeaComponent } from './idea.component';
+import { NewIdeaComponent } from './new/new.idea.component';
 import { IdeaService } from './idea.service';
 
 console.log('`Idea` bundle loaded asynchronously');
@@ -14,7 +16,9 @@ console.log('`Idea` bundle loaded asynchronously');
     /**
      * Components / Directives/ Pipes
      */
+    IdeasComponent,
     IdeaComponent,
+    NewIdeaComponent,
   ],
   imports: [
     CommonModule,
