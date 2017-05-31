@@ -13,10 +13,10 @@ import {
       <div class="box-item-1">
         Name: 
       </div>
-      <div class="box-item-1">
-        <input type="text" class="new-idea-name" [(ngModel)]="ideaName"/>
-      </div>
       <div class="box-item-2">
+        <input type="text" class="new-idea-name" [(ngModel)]="ideaName" size="35"/>
+      </div>
+      <div class="box-item-3">
         <div class="new-idea-name-error font-color-red padl-2" *ngIf="nameError != null">
           {{nameError}}
         </div>
@@ -26,11 +26,11 @@ import {
       <div class="box-item-1">
         Description: 
       </div>
-      <div class="box-item-1">
-        <textarea class="new-idea-description" [(ngModel)]="ideaDesc">
+      <div class="box-item-2">
+        <textarea class="new-idea-description" [(ngModel)]="ideaDesc" cols="38" rows="6">
         </textarea>
       </div>
-      <div class="box-item-2">
+      <div class="box-item-3">
         <div class="new-idea-desc-error font-color-red padl-2" *ngIf="descError != null">
           {{descError}}
         </div>

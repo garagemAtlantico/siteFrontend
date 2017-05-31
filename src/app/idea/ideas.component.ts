@@ -15,7 +15,7 @@ import '../../styles/styles.scss';
   template: `
     <h1>Ideas repository</h1>
     <div class="box-vertical full-width box-center">
-      <div class="new-idea box-item-2 width-30">
+      <div class="new-idea box-item-1 width-30">
         <newIdea (onIdeaAdd)="retrieveIdeas()">
         </newIdea>
       </div>

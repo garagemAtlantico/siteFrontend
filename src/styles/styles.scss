@@ -4,6 +4,8 @@
 @import 'colors';
 @import 'padding';
 @import 'border';
+@import 'sizes';
+@import 'flex';
 
 nav {
   margin-top: 16px;
@@ -19,28 +21,6 @@ nav a {
   text-align: center;
   text-decoration: none;
   border-radius: 4px;
-}
-
-.box-vertical {
-  display: flex;
-  flex-direction: column;
-}
-
-.box-center {
-  justify-content: center;
-  align-items: center;
-}
-
-.box-horizontal {
-  display: flex;
-}
-
-.box-item-1 {
-  flex: 1;
-}
-
-.box-item-2 {
-  flex: 2;
 }
 
 .full-width {

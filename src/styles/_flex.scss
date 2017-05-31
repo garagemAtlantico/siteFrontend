@@ -1,0 +1,19 @@
+.box-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.box-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.box-horizontal {
+  display: flex;
+}
+
+$list: 1 2 3 4 5 6 7;
+
+@each $i in $list {
+  .box-item-#{$i} { flex: #{$i} }
+}
