@@ -22,7 +22,7 @@ describe(`IdeaService`, () => {
     describe('add a new idea', () => {
 
       beforeEach((done) => {
-        service.add({ name: 'one', description: 'desc' }).then(() => {
+        service.add({ name: 'one', description: 'desc', creationDate: new Date() }).then(() => {
           done();
         });
       });
@@ -46,8 +46,8 @@ describe(`IdeaService`, () => {
 
   describe('when two ideas are present', () => {
     beforeEach(() => {
-      service.add({ name: 'one', description: 'description' });
-      service.add({ name: 'two', description: 'description 1' });
+      service.add({ name: 'one', description: 'description', creationDate: new Date() });
+      service.add({ name: 'two', description: 'description 1', creationDate: new Date() });
     });
 
     it('should retrieve 2 ideas', async(() => {
