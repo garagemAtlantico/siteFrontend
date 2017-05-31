@@ -16,7 +16,7 @@ export class IdeaService {
   }
 
   public getIdeas(): Promise<IdeaType[]> {
-    return Promise.resolve(this._ideas);
+    return Promise.resolve(Object.assign([], this._ideas));
   }
 
   public add(idea: IdeaType): Promise<IdeaType> {
