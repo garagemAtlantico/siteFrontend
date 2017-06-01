@@ -9,7 +9,7 @@ import {
 @Component({
   selector: 'newIdea',
   template: `
-    <div class="box-horizontal"> 
+    <div class="box-vertical"> 
       <div class="box-item-1">
         Name: 
       </div>
@@ -22,7 +22,7 @@ import {
         </div>
       </div>
     </div>
-    <div class="box-horizontal">
+    <div class="box-vertical">
       <div class="box-item-1">
         Description: 
       </div>
