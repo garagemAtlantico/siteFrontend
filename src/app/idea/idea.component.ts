@@ -1,4 +1,5 @@
-import { IdeaService, IdeaType } from './idea.service';
+import { IdeaService } from './idea.service';
+import { IdeaType } from './idea.service.interface';
 
 import {
   Component,

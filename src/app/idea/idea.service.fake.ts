@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+
 import { IdeaType, IdeaServiceInterface } from './idea.service.interface';
 
 @Injectable()
-export class IdeaService implements IdeaServiceInterface {
+export class IdeaServiceFake implements IdeaServiceInterface {
 
   public _ideas: IdeaType[] = [];
 

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { IdeaType } from './idea.service';
+import { IdeaType } from './idea.service.interface';
 
 @Pipe({
   name: 'ideaSort',

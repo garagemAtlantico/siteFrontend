@@ -15,12 +15,12 @@ import { FormsModule } from '@angular/forms';
  */
 import { NewIdeaComponent } from './new.idea.component';
 import { IdeaService } from '../idea.service';
+import { IdeaType, IdeaServiceInterface } from '../idea.service.interface';
 
 describe(`NewIdea`, () => {
   let comp: NewIdeaComponent;
   let fixture: ComponentFixture<NewIdeaComponent>;
   let ideaService: IdeaService;
-  let ideasSpy;
   let eventEmmiterSpy;
 
   /**
@@ -28,7 +28,6 @@ describe(`NewIdea`, () => {
    */
   beforeEach(async(() => {
     ideaService = new IdeaService();
-    ideasSpy = spyOn(ideaService, 'getIdeas');
     TestBed.configureTestingModule({
       declarations: [
         NewIdeaComponent,
@@ -69,8 +68,6 @@ describe(`NewIdea`, () => {
         .querySelectorAll('.new-idea-description')[0];
       saveButton = fixture.debugElement.nativeElement.querySelector(
         '.new-idea-save');
-
-      ideasSpy.and.callThrough();
     });
 
     it('should not any error visible', () => {

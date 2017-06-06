@@ -12,7 +12,8 @@ import 'rxjs/add/observable/of';
 /**
  * Load the implementations that should be tested
  */
-import { IdeaService, IdeaType } from './idea.service';
+import { IdeaService } from './idea.service';
+import { IdeaType } from './idea.service.interface';
 
 describe(`IdeaService`, () => {
   let service: IdeaService;
