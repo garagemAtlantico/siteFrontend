@@ -39,12 +39,13 @@ describe(`IdeaService`, () => {
       }));
 
       it('should return the added idea', () => {
-        let results: IdeaType[] = service.ideas();
-        expect(results.length).toBe(1);
-        let result = results[0];
+        service.getIdeas().subscribe((ideas) => {
+          expect(ideas.length).toBe(1);
+          let result = ideas[0];
 
-        expect(result.name).toEqual('one');
-        expect(result.description).toEqual('desc');
+          expect(result.name).toEqual('one');
+          expect(result.description).toEqual('desc');
+        });
       });
     });
   });
