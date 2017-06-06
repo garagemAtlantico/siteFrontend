@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 export type IdeaType = {
   name: string;
@@ -15,19 +17,17 @@ export class IdeaService {
     return this._ideas;
   }
 
-  public getIdeas(): Promise<IdeaType[]> {
-    return Promise.resolve(Object.assign([], this._ideas));
+  public getIdeas(): Observable<IdeaType[]> {
+    return Observable.of(Object.assign([], this._ideas));
   }
 
-  public add(idea: IdeaType): Promise<IdeaType> {
-    return new Promise((promise) => {
-      idea.creationDate = new Date();
-      this._ideas.push(idea);
-      promise(idea);
-    });
+  public add(idea: IdeaType): Observable<IdeaType> {
+    idea.creationDate = new Date();
+    this._ideas.push(idea);
+    return Observable.of(idea);
   }
 
-  public size(): Promise<number> {
-    return Promise.resolve(this._ideas.length);
+  public size(): Observable<number> {
+    return Observable.of(this._ideas.length);
   }
 }

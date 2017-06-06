@@ -68,10 +68,12 @@ export class NewIdeaComponent {
     }
 
     if (this.ideaName.length > 0 && this.ideaDesc.length > 0) {
-      this.ideaService.add({ name: this.ideaName, description: this.ideaDesc, creationDate: null });
-      this.onIdeaAdd.emit();
-      this.ideaName = '';
-      this.ideaDesc = '';
+      let newIdea = { name: this.ideaName, description: this.ideaDesc, creationDate: null };
+      this.ideaService.add(newIdea).subscribe(() => {
+        this.onIdeaAdd.emit();
+        this.ideaName = '';
+        this.ideaDesc = '';
+      });
     }
   }
 }

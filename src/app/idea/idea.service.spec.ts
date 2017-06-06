@@ -6,6 +6,9 @@ import {
   ComponentFixture
 } from '@angular/core/testing';
 
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+
 /**
  * Load the implementations that should be tested
  */
@@ -22,16 +25,17 @@ describe(`IdeaService`, () => {
     describe('add a new idea', () => {
 
       beforeEach((done) => {
-        service.add({ name: 'one', description: 'desc', creationDate: new Date() }).then(() => {
+        let idea = { name: 'one', description: 'desc', creationDate: new Date() };
+        service.add(idea).subscribe(() => {
           done();
         });
       });
 
-      it('size will be 1', () => {
-        service.size().then((size) => {
+      it('size will be 1', async(() => {
+        service.size().subscribe((size) => {
           expect(size).toBe(1);
         });
-      });
+      }));
 
       it('should return the added idea', () => {
         let results: IdeaType[] = service.ideas();
@@ -51,13 +55,13 @@ describe(`IdeaService`, () => {
     });
 
     it('should retrieve 2 ideas', async(() => {
-      service.getIdeas().then((ideas) => {
-      expect(ideas.length).toBe(2);
+      service.getIdeas().subscribe((ideas) => {
+        expect(ideas.length).toBe(2);
       });
     }));
 
     it('size should be 2', async(() => {
-      service.size().then((size) => {
+      service.size().subscribe((size) => {
         expect(size).toBe(2);
       });
     }));

@@ -9,6 +9,8 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 /**
  * Load the implementations that should be tested
@@ -71,7 +73,7 @@ describe(`Ideas`, () => {
     let de;
     let el;
     beforeEach(fakeAsync(() => {
-      ideasSpy.and.returnValue(Promise.resolve([]));
+      ideasSpy.and.returnValue(Observable.of([]));
       tick();
       fixture.detectChanges();
       de = fixture.debugElement.query(By.css('idea-item'));
@@ -91,7 +93,7 @@ describe(`Ideas`, () => {
         { name: 'idea 3', description: 'Just one big description used for testing' }
       ];
 
-      ideasSpy.and.returnValue(Promise.resolve(allIdeas));
+      ideasSpy.and.returnValue(Observable.of(allIdeas));
       comp.retrieveIdeas();
       tick();
       fixture.detectChanges();

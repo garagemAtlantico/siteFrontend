@@ -38,7 +38,7 @@ export class IdeasComponent implements OnInit {
   }
 
   public retrieveIdeas() {
-    this.ideaService.getIdeas().then((ideas) =>
+    this.ideaService.getIdeas().subscribe((ideas) =>
       this.ideas = ideas
     );
   }
