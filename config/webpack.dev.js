@@ -22,11 +22,13 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 3000;
 const HMR = helpers.hasProcessFlag('hot');
+const GA_API_URL = process.env.GA_API_URL || 'http://localhost:3001/';
 const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   host: HOST,
   port: PORT,
   ENV: ENV,
-  HMR: HMR
+  HMR: HMR,
+  GA_API_URL: GA_API_URL
 });
 
 
@@ -139,6 +141,7 @@ module.exports = function (options) {
           'ENV': JSON.stringify(METADATA.ENV),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR,
+          'GA_API_URL': JSON.stringify(METADATA.GA_API_URL),
         }
       }),
 

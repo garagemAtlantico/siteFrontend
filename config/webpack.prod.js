@@ -31,13 +31,15 @@ const OptimizeJsPlugin = require('optimize-js-plugin');
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 8080;
+const GA_API_URL = process.env.GA_API_URL || 'http://localhost:3000/';
 const METADATA = webpackMerge(commonConfig({
   env: ENV
 }).metadata, {
   host: HOST,
   port: PORT,
   ENV: ENV,
-  HMR: false
+  HMR: false,
+  GA_API_URL: GA_API_URL
 });
 
 module.exports = function (env) {
@@ -167,6 +169,7 @@ module.exports = function (env) {
           'ENV': JSON.stringify(METADATA.ENV),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR,
+          'GA_API_URL': JSON.stringify(METADATA.GA_API_URL),
         }
       }),
 
