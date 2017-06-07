@@ -7,8 +7,16 @@ import {
   tick,
   ComponentFixture
 } from '@angular/core/testing';
+import {
+  Http,
+  ResponseOptions,
+  Response,
+  RequestOptions,
+} from '@angular/http';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 /**
  * Load the implementations that should be tested
@@ -17,17 +25,22 @@ import { NewIdeaComponent } from './new.idea.component';
 import { IdeaService } from '../idea.service';
 import { IdeaType, IdeaServiceInterface } from '../idea.service.interface';
 
-describe(`NewIdea`, () => {
+fdescribe(`NewIdea`, () => {
   let comp: NewIdeaComponent;
   let fixture: ComponentFixture<NewIdeaComponent>;
   let ideaService: IdeaService;
   let eventEmmiterSpy;
+  let mockHttp: Http;
 
   /**
    * async beforeEach
    */
   beforeEach(async(() => {
-    ideaService = new IdeaService();
+    mockHttp = { post: null, get: null } as Http;
+
+    ideaService = new IdeaService(mockHttp);
+    let addSpy = spyOn(ideaService, 'add');
+    addSpy.and.returnValue(Observable.of({}));
     TestBed.configureTestingModule({
       declarations: [
         NewIdeaComponent,
