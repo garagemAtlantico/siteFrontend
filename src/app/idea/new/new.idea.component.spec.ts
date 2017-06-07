@@ -25,7 +25,7 @@ import { NewIdeaComponent } from './new.idea.component';
 import { IdeaService } from '../idea.service';
 import { IdeaType, IdeaServiceInterface } from '../idea.service.interface';
 
-fdescribe(`NewIdea`, () => {
+describe(`NewIdea`, () => {
   let comp: NewIdeaComponent;
   let fixture: ComponentFixture<NewIdeaComponent>;
   let ideaService: IdeaService;

@@ -30,7 +30,7 @@ describe(`IdeaService`, () => {
     service = new IdeaService(mockHttp);
   });
 
-  fdescribe('when no ideas are present', () => {
+  describe('when no ideas are present', () => {
     let mockedAnswer: IdeaType;
 
     describe('add a new idea', () => {
@@ -68,7 +68,7 @@ describe(`IdeaService`, () => {
     });
   });
 
-  fdescribe('when two ideas are present', () => {
+  describe('when two ideas are present', () => {
     let mockedAnswer: IdeaType[];
     let ideas: IdeaType[];
     let options;

@@ -7,6 +7,12 @@ import {
   tick,
   ComponentFixture
 } from '@angular/core/testing';
+import {
+  Http,
+  ResponseOptions,
+  Response,
+  RequestOptions,
+} from '@angular/http';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
@@ -26,12 +32,14 @@ describe(`Ideas`, () => {
   let fixture: ComponentFixture<IdeasComponent>;
   let ideaService: IdeaService;
   let ideasSpy;
+  let mockHttp: Http;
 
   /**
    * async beforeEach
    */
   beforeEach(async(() => {
-    ideaService = new IdeaService();
+    mockHttp = { post: null, get: null } as Http;
+    ideaService = new IdeaService(mockHttp);
     ideasSpy = spyOn(ideaService, 'getIdeas');
     TestBed.configureTestingModule({
       declarations: [
@@ -120,27 +128,27 @@ describe(`Ideas`, () => {
     let ideaNameInput;
     let ideaDescInput;
     let saveButton;
+    let allIdeas;
+
     beforeEach(() => {
+      allIdeas = [
+        {
+          name: 'New Idea',
+          description: 'This is the new description of the idea',
+          creationDate: new Date('December 17, 1995 03:24:00'),
+        },
+      ];
       ideaNameInput = fixture.nativeElement
         .querySelectorAll('.new-idea-name')[0];
       ideaDescInput = fixture.nativeElement
         .querySelectorAll('.new-idea-description')[0];
       saveButton = fixture.debugElement.nativeElement.querySelector(
         '.new-idea-save');
-
-      ideasSpy.and.callThrough();
     });
 
     describe('when is successfull', () => {
       beforeEach(async(() => {
-        fixture.detectChanges();
-        ideaNameInput.value = 'New Idea';
-        ideaNameInput.dispatchEvent(new Event('input'));
-        ideaDescInput.value = 'This is the new description of the idea';
-        ideaDescInput.dispatchEvent(new Event('input'));
-        fixture.detectChanges();
-        saveButton.click();
-        fixture.detectChanges();
+        ideasSpy.and.returnValue(Observable.of(allIdeas));
       }));
 
       it('should display 1 idea', () => {
@@ -161,36 +169,36 @@ describe(`Ideas`, () => {
         expect(de.textContent).toContain('This is the new description of the idea',
           'Idea description do not match');
       });
-      describe('when add another idea', () => {
-        beforeEach(async(() => {
-          fixture.detectChanges();
-          ideaNameInput.value = 'Newer Idea';
-          ideaNameInput.dispatchEvent(new Event('input'));
-          ideaDescInput.value = 'This is the newer description of the idea';
-          ideaDescInput.dispatchEvent(new Event('input'));
-          fixture.detectChanges();
-          saveButton.click();
-          fixture.detectChanges();
-        }));
-
-        it('should display 2 ideas', () => {
-          fixture.detectChanges();
-          let de = fixture.nativeElement.querySelectorAll('.idea-item');
-          expect(de.length).toBe(2, 'Should display 2 idea');
+    });
+    describe('when add another idea', () => {
+      beforeEach(async(() => {
+        allIdeas.push({
+          name: 'Newer Idea',
+          description: 'This is the newer description of the idea',
+          creationDate: new Date(),
         });
 
-        it('first idea should be "Newer idea"', () => {
-          fixture.detectChanges();
-          let de = fixture.nativeElement.querySelectorAll('.idea-item .idea-title')[0];
-          expect(de.textContent).toContain('Newer Idea', 'Idea name do not match');
-        });
+        ideasSpy.and.returnValue(Observable.of(allIdeas));
+        fixture.detectChanges();
+      }));
 
-        it('first idea description should be "This is the newer description of the idea"', () => {
-          fixture.detectChanges();
-          let de = fixture.nativeElement.querySelectorAll('.idea-item .idea-description')[0];
-          expect(de.textContent).toContain('This is the newer description of the idea',
-            'Idea description do not match');
-        });
+      it('should display 2 ideas', () => {
+        fixture.detectChanges();
+        let de = fixture.nativeElement.querySelectorAll('.idea-item');
+        expect(de.length).toBe(2, 'Should display 2 idea');
+      });
+
+      it('first idea should be "Newer idea"', () => {
+        fixture.detectChanges();
+        let de = fixture.nativeElement.querySelectorAll('.idea-item .idea-title')[0];
+        expect(de.textContent).toContain('Newer Idea', 'Idea name do not match');
+      });
+
+      it('first idea description should be "This is the newer description of the idea"', () => {
+        fixture.detectChanges();
+        let de = fixture.nativeElement.querySelectorAll('.idea-item .idea-description')[0];
+        expect(de.textContent).toContain('This is the newer description of the idea',
+          'Idea description do not match');
       });
     });
   });
