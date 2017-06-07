@@ -12,7 +12,6 @@ import { IdeaType, IdeaServiceInterface } from './idea.service.interface';
 
 @Injectable()
 export class IdeaService implements IdeaServiceInterface {
-
   public static createIdea(json): IdeaType {
     return {
       name: json['name'],
@@ -22,6 +21,8 @@ export class IdeaService implements IdeaServiceInterface {
   }
 
   public _ideas: IdeaType[] = [];
+
+  private APIURL = process.env.GA_API_URL;
 
   constructor(private http: Http) { }
 
@@ -34,7 +35,7 @@ export class IdeaService implements IdeaServiceInterface {
     let headerOptions = {};
     headerOptions['headers'] = headers;
     let options = new RequestOptions(headerOptions);
-    return this.http.get('http://localhost:3000/ideas', options)
+    return this.http.get(`${this.APIURL}ideas`, options)
       .map(this.convertToIdeas)
       .map((ideas) => this._ideas = ideas)
       .catch(this.handleError);
@@ -45,7 +46,7 @@ export class IdeaService implements IdeaServiceInterface {
     let headerOptions = {};
     headerOptions['headers'] = headers;
     let options = new RequestOptions(headerOptions);
-    return this.http.post('http://localhost:3000/ideas', idea, options)
+    return this.http.post(`${this.APIURL}ideas`, idea, options)
       .map(this.convertToIdea)
       .catch(this.handleError);
   }
