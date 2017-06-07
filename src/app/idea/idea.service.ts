@@ -16,7 +16,7 @@ export class IdeaService implements IdeaServiceInterface {
     return {
       name: json['name'],
       description: json['description'],
-      creationDate: new Date(json['date'])
+      creationDate: new Date(json['creationDate'])
     };
   }
 
@@ -46,6 +46,11 @@ export class IdeaService implements IdeaServiceInterface {
     let headerOptions = {};
     headerOptions['headers'] = headers;
     let options = new RequestOptions(headerOptions);
+
+    if (idea.creationDate === null) {
+      idea.creationDate = new Date();
+    }
+
     return this.http.post(`${this.APIURL}ideas`, idea, options)
       .map(this.convertToIdea)
       .catch(this.handleError);
@@ -62,7 +67,7 @@ export class IdeaService implements IdeaServiceInterface {
   }
 
   private convertToIdea(jsonResponse): IdeaType {
-    let jsonObject = jsonResponse.json()[0];
+    let jsonObject = jsonResponse.json();
     return IdeaService.createIdea(jsonObject);
   }
 

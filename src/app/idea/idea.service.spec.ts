@@ -15,9 +15,6 @@ import {
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-/**
- * Load the implementations that should be tested
- */
 import { IdeaService } from './idea.service';
 import { IdeaType } from './idea.service.interface';
 
@@ -45,7 +42,7 @@ describe(`IdeaService`, () => {
         idea = { name: 'one', description: 'desc', creationDate: new Date() };
 
         spyOn(mockHttp, 'post').and.returnValue(Observable.of({
-          json: () => [idea]
+          json: () => idea
         }));
         service.add(idea).subscribe((value) => {
           mockedAnswer = value;

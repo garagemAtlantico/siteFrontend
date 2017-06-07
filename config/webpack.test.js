@@ -16,6 +16,7 @@ const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin')
  * Webpack Constants
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
+const GA_API_URL = process.env.GA_API_URL || 'http://localhost:3000/';
 
 /**
  * Webpack configuration
@@ -208,6 +209,7 @@ module.exports = function (options) {
           'ENV': JSON.stringify(ENV),
           'NODE_ENV': JSON.stringify(ENV),
           'HMR': false,
+          'GA_API_URL': JSON.stringify(GA_API_URL),
         }
       }),
 
