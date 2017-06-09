@@ -69,7 +69,12 @@ export class NewIdeaComponent {
     }
 
     if (this.ideaName.length > 0 && this.ideaDesc.length > 0) {
-      let newIdea = { name: this.ideaName, description: this.ideaDesc, creationDate: null };
+      let newIdea = {
+        name: this.ideaName,
+        description: this.ideaDesc,
+        createdAt: null,
+        updatedAt: null
+      };
       this.ideaService.add(newIdea).subscribe(() => {
         this.onIdeaAdd.emit();
         this.ideaName = '';

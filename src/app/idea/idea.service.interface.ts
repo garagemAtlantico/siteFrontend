@@ -4,7 +4,8 @@ import 'rxjs/add/observable/of';
 export type IdeaType = {
   name: string;
   description: string;
-  creationDate: Date;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export interface IdeaServiceInterface {

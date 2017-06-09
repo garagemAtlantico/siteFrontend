@@ -18,7 +18,6 @@ export class IdeaServiceFake implements IdeaServiceInterface {
   }
 
   public add(idea: IdeaType): Observable<IdeaType> {
-    idea.creationDate = new Date();
     this._ideas.push(idea);
     return Observable.of(idea);
   }

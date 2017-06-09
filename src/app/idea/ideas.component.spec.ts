@@ -135,7 +135,8 @@ describe(`Ideas`, () => {
         {
           name: 'New Idea',
           description: 'This is the new description of the idea',
-          creationDate: new Date('December 17, 1995 03:24:00'),
+          createdAt: new Date('December 17, 1995 03:24:00'),
+          updatedAt: new Date('December 17, 1995 03:24:00'),
         },
       ];
       ideaNameInput = fixture.nativeElement
@@ -175,7 +176,8 @@ describe(`Ideas`, () => {
         allIdeas.push({
           name: 'Newer Idea',
           description: 'This is the newer description of the idea',
-          creationDate: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
         });
 
         ideasSpy.and.returnValue(Observable.of(allIdeas));

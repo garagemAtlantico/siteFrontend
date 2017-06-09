@@ -39,7 +39,7 @@ describe(`IdeaService`, () => {
         let headerOptions = {};
         headerOptions['headers'] = headers;
         options = new RequestOptions(headerOptions);
-        idea = { name: 'one', description: 'desc', creationDate: new Date() };
+        idea = { name: 'one', description: 'desc', createdAt: new Date(), updatedAt: new Date() };
 
         spyOn(mockHttp, 'post').and.returnValue(Observable.of({
           json: () => idea
@@ -77,8 +77,18 @@ describe(`IdeaService`, () => {
       options = new RequestOptions(headerOptions);
 
       ideas = [
-        { name: 'one', description: 'description', creationDate: new Date() },
-        { name: 'two', description: 'description 1', creationDate: new Date() }
+        {
+          name: 'one',
+          description: 'description',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          name: 'two',
+          description: 'description 1',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
       ];
       spyOn(mockHttp, 'get').and.returnValue(Observable.of({
         json: () => ideas
