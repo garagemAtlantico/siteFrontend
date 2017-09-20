@@ -12,3 +12,14 @@ $list: 33 50 100;
   .height-#{$i} {height: #{$i + '%'}}
 }
 
+@media (max-width: 768px) {
+  @each $i in $list {
+    .width-#{$i}-sm {width: #{$i + '%'}}
+  }
+}
+
+@media (min-width: 768px) {
+  @each $i in $list {
+    .width-#{$i}-md {width: #{$i + '%'}}
+  }
+}
