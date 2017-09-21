@@ -14,6 +14,8 @@ describe('Idea', () => {
 
   describe('when successfully adding new idea', () => {
     beforeEach(() => {
+      element(by.css('.unhide-new-idea-form')).click();
+
       let ideaName = element(by.css('.new-idea-name'));
       let ideaDescription = element(by.css('.new-idea-description'));
       let button = element(by.css('.new-idea-save'));

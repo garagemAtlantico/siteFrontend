@@ -17,8 +17,14 @@ import '../../styles/styles.scss';
     <h1>Ideas repository</h1>
     <div class="box-vertical full-width box-center">
       <div class="new-idea box-item-1 width-30">
-        <newIdea (onIdeaAdd)="retrieveIdeas()">
+        <newIdea (onIdeaAdd)="retrieveIdeas()" *ngIf="showIdeaForm">
         </newIdea>
+        <button
+          *ngIf="!showIdeaForm"
+          (click)="showIdeaForm=!showIdeaForm"
+          class="unhide-new-idea-form">
+          Add new Idea
+        </button>
       </div>
       <div *ngFor="let idea of (ideas | ideaSort)"
             class="idea-item box-item-1 padt-5 width-100-sm width-33">
@@ -29,6 +35,7 @@ import '../../styles/styles.scss';
   `,
 })
 export class IdeasComponent implements OnInit {
+  public showIdeaForm: boolean = false;
   private ideas: IdeaType[];
 
   constructor(private ideaService: IdeaService) {

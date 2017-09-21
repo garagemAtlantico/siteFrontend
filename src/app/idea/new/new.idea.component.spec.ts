@@ -18,9 +18,6 @@ import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-/**
- * Load the implementations that should be tested
- */
 import { NewIdeaComponent } from './new.idea.component';
 import { IdeaService } from '../idea.service';
 import { IdeaType, IdeaServiceInterface } from '../idea.service.interface';
@@ -32,9 +29,6 @@ describe(`NewIdea`, () => {
   let eventEmmiterSpy;
   let mockHttp: Http;
 
-  /**
-   * async beforeEach
-   */
   beforeEach(async(() => {
     mockHttp = { post: null, get: null } as Http;
 
@@ -51,9 +45,6 @@ describe(`NewIdea`, () => {
         { provide: IdeaService, useValue: ideaService },
       ]
     })
-      /**
-       * Compile template and css
-       */
       .compileComponents();
     fixture = TestBed.createComponent(NewIdeaComponent);
     comp = fixture.componentInstance;
