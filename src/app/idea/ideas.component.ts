@@ -20,8 +20,8 @@ import '../../styles/styles.scss';
         <newIdea (onIdeaAdd)="retrieveIdeas()">
         </newIdea>
       </div>
-      <div *ngFor="let idea of (ideas | ideaSort)" 
-            class="idea-item box-item-1 padt-5 width-100-sm width-30-md">
+      <div *ngFor="let idea of (ideas | ideaSort)"
+            class="idea-item box-item-1 padt-5 width-100-sm width-33">
         <idea [idea]="idea">
         </idea>
       </div>
