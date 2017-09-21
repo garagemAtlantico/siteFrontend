@@ -1,0 +1,9 @@
+$list: 0 1 2 5 10 15 20;
+
+@each $i in $list {
+  .marl-#{$i} {padding-left: #{$i}px};
+  .marr-#{$i} {padding-right: #{$i}px};
+  .mart-#{$i} {padding-top: #{$i}px};
+  .marb-#{$i} {padding-bottom: #{$i}px};
+  .mar-#{$i} {padding: #{$i}px}
+}

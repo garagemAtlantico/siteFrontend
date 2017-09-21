@@ -14,17 +14,18 @@ import '../../styles/styles.scss';
 @Component({
   selector: 'ideas',
   template: `
-    <h1>Ideas repository</h1>
+
     <div class="box-vertical full-width box-center">
-      <div class="new-idea box-item-1 width-30">
+      <div class="new-idea box-item-1 width-100-sm width-33 padb-10">
+        <h1>Idea repository</h1>
         <newIdea (onIdeaAdd)="retrieveIdeas()" *ngIf="showIdeaForm">
         </newIdea>
-        <button
+        <a
           *ngIf="!showIdeaForm"
           (click)="showIdeaForm=!showIdeaForm"
-          class="unhide-new-idea-form">
+          class="unhide-new-idea-form button">
           Add new Idea
-        </button>
+        </a>
       </div>
       <div *ngFor="let idea of (ideas | ideaSort)"
             class="idea-item box-item-1 padt-5 width-100-sm width-33">

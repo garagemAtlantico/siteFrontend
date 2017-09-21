@@ -1,9 +1,16 @@
+
+$brown: #966842;
+$red: #f44747;
+$yellow: #eedc31;
+$green: #7fdb6a;
+$blue: #0e68ce;
+
 .font-color-red {
-  color: #f72020;
+  color: $red;
 }
 
 .font-color-green {
-  color: #19ea40;
+  color: $green;
 }
 
 .font-color-black {
@@ -15,11 +22,31 @@
 }
 
 .font-color-blue {
-  color: #1386d3;
+  color: $blue;
+}
+
+.font-color-yellow {
+  color: $yellow;
+}
+
+.font-color-brown {
+  color: $brown;
+}
+
+.bg-color-red {
+  background-color: $red;
 }
 
 .bg-color-blue {
-  background-color: #1386d3;
+  background-color: $blue;
+}
+
+.bg-color-green {
+  background-color: $green;
+}
+
+.bg-color-yellow {
+  background-color: $yellow;
 }
 
 .border-color-grey {

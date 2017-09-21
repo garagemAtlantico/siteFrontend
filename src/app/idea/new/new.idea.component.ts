@@ -10,12 +10,13 @@ import {
 @Component({
   selector: 'newIdea',
   template: `
-    <div class="box-vertical"> 
+  <div class="round-corners pad-10 bg-color-yellow font-color-brown">
+    <div class="box-vertical">
       <div class="box-item-1">
-        Name: 
+        Name:
       </div>
-      <div class="box-item-2">
-        <input type="text" class="new-idea-name" [(ngModel)]="ideaName" size="35"/>
+      <div class="box-item-2 padr-5">
+        <input type="text" class="new-idea-name width-100" [(ngModel)]="ideaName"/>
       </div>
       <div class="box-item-3">
         <div class="new-idea-name-error font-color-red padl-2" *ngIf="nameError != null">
@@ -25,10 +26,10 @@ import {
     </div>
     <div class="box-vertical">
       <div class="box-item-1">
-        Description: 
+        Description:
       </div>
-      <div class="box-item-2">
-        <textarea class="new-idea-description" [(ngModel)]="ideaDesc" cols="38" rows="6">
+      <div class="box-item-2 padr-5">
+        <textarea class="new-idea-description width-100" [(ngModel)]="ideaDesc" rows="6">
         </textarea>
       </div>
       <div class="box-item-3">
@@ -37,7 +38,8 @@ import {
         </div>
       </div>
     </div>
-    <button class="new-idea-save" (click)="saveNewIdea()">Add idea</button>
+    <button class="new-idea-save button" (click)="saveNewIdea()">Add idea</button>
+  </div>
   `,
 })
 export class NewIdeaComponent {

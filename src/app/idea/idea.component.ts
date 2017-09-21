@@ -12,11 +12,11 @@ import '../../styles/styles.scss';
 @Component({
   selector: 'idea',
   template: `
-    <div class="idea-title bg-color-blue pad-5 font-color-white">
+    <div class="idea-title bg-color-green pad-5 font-color-blue">
       {{idea.name}}
     </div>
-    <div class="idea-description border-color-grey bordl-1 bordr-1 bordb-1 border-solid">
-      {{idea.description}}
+    <div class="idea-description border-color-grey bordl-1 bordr-1 bordb-1 border-solid pad-5">
+      <pre>{{idea.description}}</pre>
     </div>
   `,
 })
