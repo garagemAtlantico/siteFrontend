@@ -1,11 +1,11 @@
-$list: 50 100 200 300;
+$sizes: 50 100 200 300;
 
-@each $i in $list {
+@each $i in $sizes {
   .width-#{$i}px {width: #{$i}px}
   .height-#{$i}px {height: #{$i}px}
 }
 
-$list: 33 50 100;
+$list: 30 33 50 100;
 
 @each $i in $list {
   .width-#{$i} {width: #{$i + '%'}}
@@ -18,7 +18,7 @@ $list: 33 50 100;
   }
 }
 
-@media (min-width: 768px) {
+@media (width: 768px) {
   @each $i in $list {
     .width-#{$i}-md {width: #{$i + '%'}}
   }
