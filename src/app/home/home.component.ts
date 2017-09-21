@@ -6,7 +6,7 @@ import {
 import { AppState } from '../app.service';
 
 @Component({
-  selector: 'home',  // <home></home>
+  selector: 'home',
   styleUrls: [ './home.component.css' ],
   templateUrl: './home.component.html'
 })

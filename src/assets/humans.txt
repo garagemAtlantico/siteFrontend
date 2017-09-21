@@ -1,9 +1,9 @@
-# humanstxt.org/
-# The humans responsible & technology colophon
+# jpereira.co.uk/
+# Information
 
 # TEAM
 
-  <name> -- <role> -- <twitter>
+  Joao Pereira -- Developer
 
 # THANKS
 

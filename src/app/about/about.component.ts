@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,11 +13,8 @@ import { ActivatedRoute } from '@angular/router';
     <a href="http://jpereira.co.uk">Website</a>
   `
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent {
   constructor(
     public route: ActivatedRoute
   ) {}
-
-  public ngOnInit() {
-  }
 }
