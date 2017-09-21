@@ -24,8 +24,9 @@ describe('Idea', () => {
 
     it('should add new idea', () => {
       let ideaList = element(by.css('.idea-item'));
-      expect(ideaList.findElement('.idea-title').getText()).toEqual('new idea');
-      expect(ideaList.findElement('.idea-description').getText())
+
+      expect(ideaList.element(by.css('.idea-title')).getText()).toEqual('new idea');
+      expect(ideaList.element(by.css('.idea-description')).getText())
         .toEqual('This is a very interesting idea');
     });
   });
